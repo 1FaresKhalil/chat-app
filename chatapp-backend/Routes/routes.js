@@ -9,8 +9,10 @@ let message_controller = new MessageController();
 function routes(app) {
     app.post("/signup", user_controller.signUp);
     app.post("/login", user_controller.login);
+    app.get("/users", user_controller.getAllUsers)
     app.get("/profile", user_controller.getProfile);
     app.get("/user/:id", user_controller.getUserById);
+
 
     app.post("/conversation", conversation_controller.newConversation);
     app.get("/conversation/:userId", conversation_controller.getConversationOfUser);

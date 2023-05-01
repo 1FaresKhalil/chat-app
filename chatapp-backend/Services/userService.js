@@ -70,6 +70,14 @@ class UserService {
             return null;
         }
     }
+
+    async listAllUsers() {
+        try {
+            return await User.find({});
+        } catch (e) {
+            return null;
+        }
+    }
 }
 
 module.exports = {

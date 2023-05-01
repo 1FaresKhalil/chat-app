@@ -68,6 +68,19 @@ class UserController {
             })
         }
     }
+
+    async getAllUsers(req,res) {
+        let result = await service.listAllUsers();
+        if (result === null) {
+            res.json({
+                message: "there is error to list all user"
+            })
+        } else {
+            res.json({
+                "users": result
+            })
+        }
+    }
 }
 module.exports = {
     UserController
