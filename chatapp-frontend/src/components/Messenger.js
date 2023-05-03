@@ -6,11 +6,12 @@ import Message from "./Message";
 import ChatOnline from "./ChatOnline";
 import axios from "axios";
 import {io} from "socket.io-client";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchUserProfile} from "./slices/userSlice";
 
 function Messenger() {
     const scrollRef = useRef();
     const socket = useRef();
-    const [user, setUser] = useState({});
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState("");
@@ -20,20 +21,41 @@ function Messenger() {
     let token = JSON.parse(localStorage.getItem('token'));
 
     // get profile to know which user server deal with
+    let user = useSelector(state => state.user.user);
+    let dispatch = useDispatch();
+
     useEffect(() => {
-        const getProfile = async () => {
-            try {
-                const res = await axios.get(
-                    "http://localhost:8000/profile", {headers: {"Authorization": token,}}
-                );
-                setUser(res.data.user);
-            } catch (e) {
-                console.log(e);
-            }
-        };
-        getProfile().then(() => {
+        dispatch(fetchUserProfile())
+    }, [])
+
+    // side effects for socket io
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900");
+        socket.current.on("getMessage", (data) => {
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            });
         });
     }, []);
+
+    useEffect(() => {
+        arrivalMessage &&
+        currentChat?.members.includes(arrivalMessage.sender) &&
+        setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, currentChat]);
+
+    useEffect(() => {
+        if(user._id){
+            socket.current.emit("addUser", user._id);
+            socket.current.on("getUsers", (users) => {
+                setOnlineUsers(
+                    users
+                );
+            });
+        }
+    }, [user]);
 
     // get conversations of user login know to view in chat menu
     useEffect(() => {
@@ -51,7 +73,6 @@ function Messenger() {
             });
         }
     }, [user._id]);
-
 
     // make useEffect to reset style of chat page
     useEffect(() => {
@@ -79,38 +100,34 @@ function Messenger() {
         });
     }, [currentChat]);
 
-    // move the scroller to the end of current chat
-    useEffect(() => {
-        scrollRef.current?.scrollIntoView({behavior: "smooth"});
-    }, [messages]);
 
-    console.log(user)
     // side effects for socket io
-    useEffect(() => {
-        socket.current.emit("addUser", user._id);
-        socket.current.on("getUsers", (users) => {
-            setOnlineUsers(
-                users
-            );
-        });
-    }, [user])
-
-    useEffect(() => {
-        socket.current = io("ws://localhost:8900");
-        socket.current.on("getMessage", (data) => {
-            setArrivalMessage({
-                sender: data.senderId,
-                text: data.text,
-                createdAt: Date.now(),
-            });
-        });
-    }, []);
-
-    useEffect(() => {
-        arrivalMessage &&
-        currentChat?.members.includes(arrivalMessage.sender) &&
-        setMessages((prev) => [...prev, arrivalMessage]);
-    }, [arrivalMessage, currentChat]);
+    // useEffect(() => {
+    //     socket.current = io("ws://localhost:8900");
+    //     socket.current.on("getMessage", (data) => {
+    //         setArrivalMessage({
+    //             sender: data.senderId,
+    //             text: data.text,
+    //             createdAt: Date.now(),
+    //         });
+    //     });
+    // }, []);
+    //
+    // useEffect(() => {
+    //     socket.current.emit("addUser", user._id);
+    //     socket.current.on("getUsers", (users) => {
+    //         setOnlineUsers(
+    //             users
+    //         );
+    //     });
+    // }, [user])
+    //
+    //
+    // useEffect(() => {
+    //     arrivalMessage &&
+    //     currentChat?.members.includes(arrivalMessage.sender) &&
+    //     setMessages((prev) => [...prev, arrivalMessage]);
+    // }, [arrivalMessage, currentChat]);
 
 
     const handleSubmit = async (e) => {
@@ -138,6 +155,11 @@ function Messenger() {
             console.log(err);
         }
     }
+
+    // move the scroller to the end of current chat
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({behavior: "smooth"});
+    }, [messages]);
 
     // const makeConversation = async ()=>{
     //

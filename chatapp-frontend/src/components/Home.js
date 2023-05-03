@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 import '../style/_home.scss'
 import Header from "./Header";
 import {Button, Container, Table} from "react-bootstrap";
-import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchAllUsers} from "./slices/userSlice";
 
 function Users() {
-    const [users, setUsers] = useState([]);
-    let token = JSON.parse(localStorage.getItem('token'));
     const [spinner, setSpinner] = useState(true);
+    let dispatch = useDispatch();
+    let users = useSelector(state => state.user.users);
 
     let spinnerElem =
         <div className='d-flex flex-row justify-content-center align-items-center'>
@@ -17,14 +18,8 @@ function Users() {
         </div>
 
     useEffect(() => {
-        const getUsers = async () => {
-            const res = await axios.get(`http://localhost:8000/users`,
-                {headers: {"Authorization": token,}});
-            setUsers(res.data.users);
-            setSpinner(false)
-        };
-        getUsers().then(() => {
-        });
+        dispatch(fetchAllUsers())
+        setSpinner(false)
         document.body.style.backgroundImage = 'none';
         document.body.style.display = 'block';
 
