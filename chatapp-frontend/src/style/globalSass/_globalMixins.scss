@@ -1,0 +1,34 @@
+@import "./colors";
+@import "./fonts";
+
+@mixin main_button{
+  background-color: $color1;
+  border: none;
+  transition: 0.3s;
+}
+
+@mixin hover_main_button{
+  background-color: #a19aca;
+}
+
+@mixin form_labels{
+  font-size: 1.11111vw;
+  font-family: $main_font;
+  opacity: 0.8;
+  margin-bottom: 0;
+  letter-spacing: 2px;
+}
+
+@mixin form_inputs{
+  font-size: 1.2vw;
+  width: 100%;
+  height: 6vh;
+}
+@mixin form_title{
+  letter-spacing: 4px;
+  font-family: $title_font;
+  opacity: 0.8;
+}
+@mixin spinner{
+  color: $color1;
+}

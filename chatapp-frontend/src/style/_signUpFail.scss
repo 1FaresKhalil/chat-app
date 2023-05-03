@@ -1,0 +1,15 @@
+@import "./globalSass/colors";
+@import "./globalSass/fonts";
+@import "./globalSass/globalMixins";
+
+.signup-fail h1{
+  opacity: 0.9;
+  letter-spacing: 4px;
+}
+.signup-fail .login-btn, .signup-fail .signup-btn{
+  @include main_button;
+}
+
+.signup-fail .login-btn:hover, .signup-fail .signup-btn:hover{
+  @include hover_main_button;
+}

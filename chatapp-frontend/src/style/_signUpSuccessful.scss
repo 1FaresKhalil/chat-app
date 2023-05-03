@@ -1,0 +1,15 @@
+@import "./globalSass/colors";
+@import "./globalSass/fonts";
+@import "./globalSass/globalMixins";
+
+.successful-signup h1{
+  opacity: 0.9;
+  letter-spacing: 4px;
+}
+.successful-signup .login-btn{
+  @include main_button;
+}
+
+.successful-signup .login-btn:hover{
+  @include hover_main_button;
+}

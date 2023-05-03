@@ -19,8 +19,16 @@ function Messenger() {
     const [onlineUsers, setOnlineUsers] = useState([]);
     let token = JSON.parse(localStorage.getItem('token'));
 
-    // console.log(currentChat)
+    useEffect(()=>{
+        document.body.style.backgroundImage = 'none';
+        document.body.style.display = 'block';
 
+        return () => {
+            document.body.style.backgroundImage = '';
+            document.body.style.display = '';
+        };
+    },[])
+    
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
         socket.current.on("getMessage", (data) => {
@@ -111,7 +119,7 @@ function Messenger() {
             text: newMessage,
         });
         try {
-            const res = await axios.post("http://localhost:8000/message", message,
+            await axios.post("http://localhost:8000/message", message,
                 {headers: {"Authorization": token,}});
             setMessages([...messages, message]);
             setNewMessage("");
@@ -123,6 +131,10 @@ function Messenger() {
     useEffect(() => {
         scrollRef.current?.scrollIntoView({behavior: "smooth"});
     }, [messages]);
+
+    // const makeConversation = async ()=>{
+    //
+    // }
 
     return (
         <div>

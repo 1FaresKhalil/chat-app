@@ -1,0 +1,17 @@
+@import "./globalSass/colors";
+.header{
+  height: 10vh;
+  background-color: $color1;
+}
+.header h2{
+  letter-spacing: 4px;
+}
+.header .logout ,.header .room{
+  border: none;
+  background-color: transparent;
+  font-size: 1.5vw;
+  letter-spacing: 4px;
+}
+.header svg{
+  font-size: 1.5vw;
+}

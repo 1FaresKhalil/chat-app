@@ -1,0 +1,25 @@
+@import "./globalSass/colors";
+@import "./globalSass/fonts";
+@import "./globalSass/media";
+@import "./globalSass/globalMixins";
+.signup{
+  width: 80vh;
+}
+.signup .signup-btn{
+  @include main_button;
+}
+.signup .signup-btn:hover, .signup .signup-btn:active{
+  @include hover_main_button;
+}
+.signup label{
+  @include form_labels;
+}
+.signup input{
+  @include form_inputs;
+}
+.signup h2{
+  @include form_title;
+}
+.signup .spinner{
+  @include spinner;
+}

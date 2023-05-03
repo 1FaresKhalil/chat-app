@@ -15,10 +15,10 @@ app.use(Middleware);
 
 routes(app);
 
-
+const DB_URI = "mongodb+srv://fareskhalel:Fares123456789@cluster0.fm5zods.mongodb.net/chatApp?retryWrites=true&w=majority"
 const port = 8000;
 mongoose
-  .connect("mongodb://localhost:27017/chatApp")
+  .connect(DB_URI)
   .then(() => {
     app.listen(port, function () {
       console.log(`running on http://localhost:${port}`);
