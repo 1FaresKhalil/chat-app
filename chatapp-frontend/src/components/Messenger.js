@@ -101,35 +101,6 @@ function Messenger() {
     }, [currentChat]);
 
 
-    // side effects for socket io
-    // useEffect(() => {
-    //     socket.current = io("ws://localhost:8900");
-    //     socket.current.on("getMessage", (data) => {
-    //         setArrivalMessage({
-    //             sender: data.senderId,
-    //             text: data.text,
-    //             createdAt: Date.now(),
-    //         });
-    //     });
-    // }, []);
-    //
-    // useEffect(() => {
-    //     socket.current.emit("addUser", user._id);
-    //     socket.current.on("getUsers", (users) => {
-    //         setOnlineUsers(
-    //             users
-    //         );
-    //     });
-    // }, [user])
-    //
-    //
-    // useEffect(() => {
-    //     arrivalMessage &&
-    //     currentChat?.members.includes(arrivalMessage.sender) &&
-    //     setMessages((prev) => [...prev, arrivalMessage]);
-    // }, [arrivalMessage, currentChat]);
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const message = {
@@ -149,7 +120,7 @@ function Messenger() {
         try {
             await axios.post("http://localhost:8000/message", message,
                 {headers: {"Authorization": token,}});
-            setMessages([...messages, message]);
+            setMessages([...messages ,message]);
             setNewMessage("");
         } catch (err) {
             console.log(err);
@@ -161,9 +132,19 @@ function Messenger() {
         scrollRef.current?.scrollIntoView({behavior: "smooth"});
     }, [messages]);
 
-    // const makeConversation = async ()=>{
-    //
-    // }
+    const makeConversation = async (sender,receiver)=>{
+        const new_conversation = {
+            senderId:sender,
+            receiverId:receiver
+        }
+        try {
+            const res = await axios.post(`http://localhost:8000/conversation`,new_conversation,
+                {headers: {"Authorization": token,}});
+            setConversations([...conversations ,new_conversation]);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     return (
         <div>

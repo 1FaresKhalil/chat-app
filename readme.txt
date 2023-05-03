@@ -19,3 +19,6 @@ Tasks
 8- group chat 
 9- make login- signup- home - chat responsive in md,sm
 10- put right profile picture
+11- handle reset inputs (login-signup)
+12-handle empty messages
+13- pending for conversations and messages
