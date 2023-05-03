@@ -1,5 +1,5 @@
 import React from 'react';
-import "../style/Message.css";
+import '../style/_message.scss';
 import {format} from "timeago.js";
 
 function Message({message, own}) {
@@ -14,20 +14,6 @@ function Message({message, own}) {
                 <p className='messageText'>{message.text}</p>
             </div>
             <div className="messageBottom">{format(message.createdAt)}</div>
-            {/*{*/}
-            {/*    own === true &&*/}
-            {/*    <>*/}
-            {/*        <div className='messageTop'>*/}
-            {/*            <img*/}
-            {/*                className="messageImg"*/}
-            {/*                src="https://cdn.acidcow.com/pics/20131001/random_cute_girls_48.jpg"*/}
-            {/*                alt=""*/}
-            {/*            />*/}
-            {/*            <p className='messageText'>{message.text}</p>*/}
-            {/*        </div>*/}
-            {/*        <div className="messageBottom">{format(message.createdAt)}</div>*/}
-            {/*    </>*/}
-            {/*}*/}
         </div>
     );
 }

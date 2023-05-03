@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
     //send event to all users connect to socket
     io.emit("welcome","welcome this is socket server")
 
-    //take userId and socketId from user
+    //take userId and socketId from user to add user and then send users to client
     socket.on("addUser", (userId) => {
         if(userId){
             addUser(userId, socket.id);

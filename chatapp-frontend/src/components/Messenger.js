@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Header from "./Header";
-import '../style/Messenger.css'
+import '../style/_messanger.scss';
 import Conversations from "./Conversations";
 import Message from "./Message";
 import ChatOnline from "./ChatOnline";
@@ -19,43 +19,7 @@ function Messenger() {
     const [onlineUsers, setOnlineUsers] = useState([]);
     let token = JSON.parse(localStorage.getItem('token'));
 
-    useEffect(()=>{
-        document.body.style.backgroundImage = 'none';
-        document.body.style.display = 'block';
-
-        return () => {
-            document.body.style.backgroundImage = '';
-            document.body.style.display = '';
-        };
-    },[])
-    
-    useEffect(() => {
-        socket.current = io("ws://localhost:8900");
-        socket.current.on("getMessage", (data) => {
-            setArrivalMessage({
-                sender: data.senderId,
-                text: data.text,
-                createdAt: Date.now(),
-            });
-        });
-    }, []);
-
-    useEffect(() => {
-        arrivalMessage &&
-        currentChat?.members.includes(arrivalMessage.sender) &&
-        setMessages((prev) => [...prev, arrivalMessage]);
-    }, [arrivalMessage, currentChat]);
-
-    useEffect(() => {
-        socket.current.emit("addUser", user._id);
-        socket.current.on("getUsers", (users) => {
-            setOnlineUsers(
-                users
-            );
-        });
-    }, [user])
-
-
+    // get profile to know which user server deal with
     useEffect(() => {
         const getProfile = async () => {
             try {
@@ -71,6 +35,7 @@ function Messenger() {
         });
     }, []);
 
+    // get conversations of user login know to view in chat menu
     useEffect(() => {
         const getConversations = async () => {
             try {
@@ -88,6 +53,18 @@ function Messenger() {
     }, [user._id]);
 
 
+    // make useEffect to reset style of chat page
+    useEffect(() => {
+        document.body.style.backgroundImage = 'none';
+        document.body.style.display = 'block';
+
+        return () => {
+            document.body.style.backgroundImage = '';
+            document.body.style.display = '';
+        };
+    }, [])
+
+    // get message of current chat
     useEffect(() => {
         const getMessages = async () => {
             try {
@@ -101,6 +78,40 @@ function Messenger() {
         getMessages().then(() => {
         });
     }, [currentChat]);
+
+    // move the scroller to the end of current chat
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({behavior: "smooth"});
+    }, [messages]);
+
+    console.log(user)
+    // side effects for socket io
+    useEffect(() => {
+        socket.current.emit("addUser", user._id);
+        socket.current.on("getUsers", (users) => {
+            setOnlineUsers(
+                users
+            );
+        });
+    }, [user])
+
+    useEffect(() => {
+        socket.current = io("ws://localhost:8900");
+        socket.current.on("getMessage", (data) => {
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            });
+        });
+    }, []);
+
+    useEffect(() => {
+        arrivalMessage &&
+        currentChat?.members.includes(arrivalMessage.sender) &&
+        setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, currentChat]);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -128,10 +139,6 @@ function Messenger() {
         }
     }
 
-    useEffect(() => {
-        scrollRef.current?.scrollIntoView({behavior: "smooth"});
-    }, [messages]);
-
     // const makeConversation = async ()=>{
     //
     // }
@@ -140,6 +147,7 @@ function Messenger() {
         <div>
             <Header/>
             <div className='messenger d-flex'>
+
                 <div className='chatMenu'>
                     <div className='chatMenuWrapper p-5 h-100'>
                         <input placeholder='Search for people' className='chatMenuInput'/>
@@ -155,6 +163,7 @@ function Messenger() {
 
                     </div>
                 </div>
+
                 <div className='chatBox'>
                     <div className='chatBoxWrapper p-5 h-100'>
                         {
@@ -167,12 +176,13 @@ function Messenger() {
                                             </div>
                                         ))}
                                     </div>
+
                                     <div className='chatBoxBottom'>
-                            <textarea className="chatMessageInput"
-                                      placeholder="write something..."
-                                      onChange={(e) => setNewMessage(e.target.value)}
-                                      value={newMessage}
-                            ></textarea>
+                                        <textarea className="chatMessageInput"
+                                                  placeholder="write something..."
+                                                  onChange={(e) => setNewMessage(e.target.value)}
+                                                  value={newMessage}
+                                        ></textarea>
                                         <button className="chatSubmitButton"
                                                 onClick={handleSubmit}>
                                             Send
@@ -186,6 +196,7 @@ function Messenger() {
 
                     </div>
                 </div>
+
                 <div className='chatOnline'>
                     <div className='chatOnlineWrapper p-5 h-100'>
                         <ChatOnline
@@ -195,6 +206,7 @@ function Messenger() {
                         />
                     </div>
                 </div>
+
             </div>
         </div>
     );

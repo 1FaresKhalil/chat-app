@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import '../style/Conversations.css'
+import '../style/_conversations.scss'
 import axios from "axios";
 
 function Conversations({conversation, currentUser}) {

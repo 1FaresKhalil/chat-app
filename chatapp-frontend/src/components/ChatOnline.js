@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import '../style/ChatOnline.css'
+import '../style/_chatOnline.scss';
 import axios from "axios";
 
 function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
     const [friends, setFriends] = useState([]);
     const [onlineFriends, setOnlineFriends] = useState([]);
     let token = JSON.parse(localStorage.getItem('token'));
+
+    let new_online_users = onlineUsers.filter((u)=> u.userId !== currentId);
 
     useEffect(() => {
         const getFriends = async () => {
@@ -18,7 +20,7 @@ function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
 
     useEffect(() => {
         setOnlineFriends(friends.filter((f) => {
-            return onlineUsers.find((u) => u.userId === f._id);
+            return new_online_users.find((u) => u.userId === f._id);
         }));
     }, [friends, onlineUsers]);
 
