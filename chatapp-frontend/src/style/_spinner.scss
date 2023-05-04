@@ -1,0 +1,5 @@
+@import "./globalSass/globalMixins";
+@import "./globalSass/colors";
+.spinner{
+  @include spinner;
+}

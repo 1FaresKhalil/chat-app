@@ -5,6 +5,8 @@ import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import SignUpSuccessful from "./components/SignUpSuccessful";
 import SignUpFail from "./components/signUpFail";
+import NotFound from "./components/NotFound";
+import UnAuthenticated from "./components/UnAuthenticated";
 
 function App() {
     return (
@@ -16,6 +18,8 @@ function App() {
                 <Route path='/signUpFail' element={<SignUpFail/>} />
                 <Route path='/home' element={<Home/>}/>
                 <Route path='/chat' element={<Messenger/>}/>
+                <Route path='*' element={<NotFound/>}/>
+                <Route path='/unauthorized' element={<UnAuthenticated/>}/>
             </Routes>
         </div>
     );

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../style/_chatOnline.scss';
 import axios from "axios";
 
-function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
+function ChatOnline({ onlineUsers, currentId, setCurrentChat,conversations, setConversations }) {
     const [friends, setFriends] = useState([]);
     const [onlineFriends, setOnlineFriends] = useState([]);
     let token = JSON.parse(localStorage.getItem('token'));
@@ -24,6 +24,20 @@ function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
         }));
     }, [friends, onlineUsers]);
 
+    const makeConversation = async (sender,receiver)=>{
+        const new_conversation = {
+            senderId:sender,
+            receiverId:receiver
+        }
+        try {
+            const res = await axios.post(`http://localhost:8000/conversation`,new_conversation,
+                {headers: {"Authorization": token,}});
+            setConversations([...conversations ,new_conversation]);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
 
     const handleClick = async (user) => {
         try {
@@ -31,7 +45,11 @@ function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
                 `http://localhost:8000/conversation/find/${currentId}/${user._id}`,
                 {headers: {"Authorization": token,}}
             );
-            setCurrentChat(res.data.result);
+            if(res.result === "no conversation"){
+                await makeConversation(currentId,user._id);
+            }else{
+                setCurrentChat(res.data.result);
+            }
         } catch (err) {
             console.log(err);
         }

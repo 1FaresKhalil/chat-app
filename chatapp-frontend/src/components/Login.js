@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Form, Button, Row, Col, Container} from 'react-bootstrap';
 import axios from "axios";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import '../style/_login.scss'
 
 function Login() {
@@ -25,11 +25,17 @@ function Login() {
         axios.post(api_url_login, {username, password}).then((res) => {
             if (res.data.result.token) {
                 localStorage.setItem('token', JSON.stringify(res.data.result.token));
-                navigate('/home');
+                navigate('/home',{replace:true});
             }
         }).catch((error) => {
             if (error.response && error.response.status === 404) {
                 setLoginIssue(true);
+                setUsername("");
+                setPassword("");
+            }else{
+                setLoginIssue(true);
+                setUsername("");
+                setPassword("");
             }
         })
     }
@@ -71,7 +77,6 @@ function Login() {
                                         onChange={handleUsernameChange}
                                         onClick={() => {
                                             setLoginIssue(false);
-                                            setUsername("");
                                         }
                                         }
                                     />
@@ -88,7 +93,6 @@ function Login() {
                                         onChange={handlePasswordChange}
                                         onClick={() => {
                                             setLoginIssue(false);
-                                            setPassword("")
                                         }
                                         }
                                     />
