@@ -1,5 +1,5 @@
 @import "./globalSass/colors";
-.messenger{
+.messenger {
   height: calc(100vh - 50px);
 }
 .chatMenu {
@@ -44,7 +44,7 @@
   padding: 10px;
   font-size: 16px;
 }
-.chatMessageInput:focus{
+.chatMessageInput:focus {
   outline: none;
 }
 
@@ -77,20 +77,60 @@
   cursor: default;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
+  #chatMenuWrapper {
+    padding-top: 0.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+  #chatBoxWrapper {
+    padding-top: 0.5rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .messenger {
+    flex-direction: column;
+  }
   .chatMenu {
     flex: 1;
   }
-
+  .conversation {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
   .chatMenuInput {
     display: none;
   }
 
-  .chatBox{
+  .chatBox {
     flex: 10;
   }
-
-  .chatOnline{
+  .chatMenuWrapper {
+    display: flex;
+    gap: 5px;
+  }
+  .chatBoxWrapper {
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+  }
+  .chatBoxTop {
+    height: 67vh;
+  }
+  .chatOnline {
     flex: 1px;
+  }
+  .chatOnlineWrapper {
+    display: none;
+  }
+  .chatBoxBottom {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .chatMessageInput {
+    height: auto;
+  }
+  .chatSubmitButton {
+    width: auto;
+    height: auto;
+    font-size: 18px;
   }
 }
