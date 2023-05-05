@@ -30,6 +30,7 @@ function Login() {
         if (res.data.result.token) {
           localStorage.setItem("token", JSON.stringify(res.data.result.token));
           navigate("/home", { replace: true });
+          // needs to reload the page to get the token
           window.location.reload();
         }
       })
