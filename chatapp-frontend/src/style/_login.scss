@@ -6,6 +6,9 @@
 .login {
   border: 1px solid $color7;
   height: 60vh;
+  @media screen and (max-width: 1024px) {
+    height: auto;
+  }
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
 
   //@include mdq(all-mobile) {
@@ -17,34 +20,48 @@
   //  }
   //}
 }
-.login .left{
+.login .left {
   border-right: 2px solid rgb(128 128 128 / 38%);
   height: 60vh;
+  @media screen and (max-width: 1024px) {
+    height: auto;
+  }
 }
-.login .left h2{
+.login .left h2 {
   @include form_title;
 }
-.login .left a{
+.login .left a {
   letter-spacing: 3px;
   font-family: $title_font;
   opacity: 0.7;
   cursor: pointer;
 }
-.login .right .login-btn ,.login .left .signup-btn {
+.login .right .login-btn,
+.login .left .signup-btn {
   @include main_button;
 }
-.login .right .login-btn:hover ,.login .left .signup-btn:hover,.login .left .signup-btn:active{
+.login .right {
+  @media screen and (max-width: 1024px) {
+    padding-top: 0 !important;
+  }
+}
+.login .right .login-btn:hover,
+.login .left .signup-btn:hover,
+.login .left .signup-btn:active {
   @include hover_main_button;
 }
 .login .right input {
   @include form_inputs;
 }
-.login .right label{
+.login .right label {
   @include form_labels;
 }
-.login .form-fields{
+.login .form-fields {
   width: 110%;
 }
-.login .row{
+.login .row {
   height: 60vh;
+  @media screen and (max-width: 1024px) {
+    height: auto;
+  }
 }
