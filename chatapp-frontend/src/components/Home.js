@@ -2,25 +2,17 @@ import React, { useEffect } from "react";
 import "../style/_home.scss";
 import Header from "./Header";
 import { Button, Container, Table } from "react-bootstrap";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchAllUsers } from "./slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllUsers } from "./slices/userSlice";
 import Spinner from "./Spinner";
-import axios from "axios";
 import UnAuthenticated from "./UnAuthenticated";
 
-let token = JSON.parse(localStorage.getItem("token"));
-
 function Users() {
-  let [users, setUsers] = React.useState([]);
+  let dispatch = useDispatch();
+  let users = useSelector((state) => state.user.users);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await axios.get(`http://localhost:8000/users`, {
-        headers: { Authorization: token },
-      });
-      setUsers(res.data.users);
-    };
-    fetchUsers();
+    dispatch(fetchAllUsers());
     document.body.style.backgroundImage = "none";
     document.body.style.display = "block";
 
