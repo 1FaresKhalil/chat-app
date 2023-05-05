@@ -19,6 +19,7 @@
 }
 .login .left{
   border-right: 2px solid rgb(128 128 128 / 38%);
+  height: 60vh;
 }
 .login .left h2{
   @include form_title;

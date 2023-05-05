@@ -11,6 +11,7 @@
   padding: 10px 0;
   border: none;
   border-bottom: 1px solid gray;
+  font-size: 20px;
 }
 
 .chatBox {
@@ -41,6 +42,10 @@
   width: 80%;
   height: 90px;
   padding: 10px;
+  font-size: 16px;
+}
+.chatMessageInput:focus{
+  outline: none;
 }
 
 .chatSubmitButton {

@@ -6,6 +6,7 @@
 
 .login .left {
   border-right: 2px solid rgba(128, 128, 128, 0.38);
+  height: 60vh;
 }
 
 .login .left h2 {
@@ -32,13 +33,13 @@
 }
 
 .login .right input {
-  font-size: 1.3vw;
+  font-size: 16px;
   width: 100%;
   height: 6vh;
 }
 
 .login .right label {
-  font-size: 1.2vw;
+  font-size: 19px;
   font-family: Roboto, sans-serif;
   opacity: 0.8;
   margin-bottom: 0;
@@ -53,10 +54,6 @@
   height: 60vh;
 }
 
-.signup {
-  width: 80vh;
-}
-
 .signup .signup-btn {
   background-color: #93BFCF;
   border: none;
@@ -68,7 +65,7 @@
 }
 
 .signup label {
-  font-size: 1.2vw;
+  font-size: 19px;
   font-family: Roboto, sans-serif;
   opacity: 0.8;
   margin-bottom: 0;
@@ -76,7 +73,7 @@
 }
 
 .signup input {
-  font-size: 1.3vw;
+  font-size: 16px;
   width: 100%;
   height: 6vh;
 }
@@ -136,6 +133,10 @@
   color: #93BFCF;
 }
 
+td, th {
+  font-size: 18px;
+}
+
 .conversation {
   display: flex;
   align-items: center;
@@ -157,7 +158,7 @@
 }
 
 .conversationName {
-  font-weight: 500;
+  font-size: 18px;
 }
 
 @media screen and (max-width: 768px) {
@@ -190,6 +191,7 @@
   color: white;
   max-width: 300px;
   margin: 3px;
+  font-size: 15px;
 }
 
 .messageBottom {
@@ -218,6 +220,7 @@
   padding: 10px 0;
   border: none;
   border-bottom: 1px solid gray;
+  font-size: 20px;
 }
 
 .chatBox {
@@ -248,6 +251,11 @@
   width: 80%;
   height: 90px;
   padding: 10px;
+  font-size: 16px;
+}
+
+.chatMessageInput:focus {
+  outline: none;
 }
 
 .chatSubmitButton {
@@ -324,21 +332,16 @@
   right: 2px;
 }
 
-@media screen and (max-width: 768px) {
-  .chatOnlineName {
-    display: none;
-  }
+.chatOnlineName {
+  font-size: 16px;
 }
+
 .spinner {
   color: #93BFCF;
 }
 
-.logo {
-  width: 60vh;
-}
-
-p {
-  font-size: 20px;
+div {
+  font-size: 25px;
 }
 
 /*# sourceMappingURL=main.css.map */

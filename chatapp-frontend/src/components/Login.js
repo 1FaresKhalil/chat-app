@@ -50,21 +50,21 @@ function Login() {
     }
 
     return (
-        <div className='login d-flex flex-row justify-content-center align-items-center'>
-            <Container>
+        <div className='login d-flex flex-row justify-content-center align-items-center bg-light bg-opacity-75'>
+            <Container fluid="md sm">
                 <Row className='row'>
-                    <Col
-                        className='left p-5 d-flex flex-column justify-content-center align-items-center bg-light bg-opacity-50'>
+                    <Col xs={6} lg={5} md={6}
+                        className='left p-5 d-flex flex-column justify-content-center align-items-center'>
                         <h2 className='text-center'>Login Please</h2>
-                        <Link to='/signUp' className='text-black pt-2'>Don't have account?</Link>
+                        <Link to='/signUp' className='text-black pt-2 text-center'>Don't have account?</Link>
                         <Button className='signup-btn mt-3' type="submit"
                                 onClick={handleSignUp}>
                             Signup
                         </Button>
                     </Col>
 
-                    <Col
-                        className='right p-5 d-flex flex-row justify-content-evenly align-items-center bg-light bg-opacity-50'>
+                    <Col xs={6} lg={7} md={6}
+                        className='right p-5 d-flex flex-row justify-content-evenly align-items-center'>
                         <Form onSubmit={handleSubmit} className='p-4'>
                             {loginIssue && issue}
                             <div className='form-fields'>

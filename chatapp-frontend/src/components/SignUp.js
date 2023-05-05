@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Container, Form} from "react-bootstrap";
+import {Button, Container, Form, Col, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import '../style/_signUp.scss'
 import axios from "axios";
@@ -55,75 +55,78 @@ function SignUp() {
 
     return (
         <div className='signup bg-light bg-opacity-75 p-2'>
-            <Container>
-                <h2 className='text-center mt-1'>SignUp</h2>
-                {signupIssue && issue}
+            <Container fluid="md" className='px-lg-5'>
+                <Row className='row p-4'>
+                    <Col md="auto" sm="auto">
+                        <h2 className='text-center mt-1'>SignUp</h2>
+                        {signupIssue && issue}
 
-                <Form onSubmit={handleSubmit} className='p-4 m-2'>
+                        <Form onSubmit={handleSubmit} className='p-4 m-2'>
+                            <div className='form-fields p-1'>
+                                <Form.Group controlId="formBasicName">
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter your name"
+                                        value={name}
+                                        onChange={handleNameChange}
+                                        onClick={()=> setSignupIssue(false)}
+                                    />
+                                </Form.Group>
+                            </div>
 
-                    <div className='form-fields p-1'>
-                        <Form.Group controlId="formBasicName">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter your name"
-                                value={name}
-                                onChange={handleNameChange}
-                                onClick={()=> setSignupIssue(false)}
-                            />
-                        </Form.Group>
-                    </div>
+                            <div className='form-fields mt-3 p-1'>
+                                <Form.Group controlId="formBasicAge">
+                                    <Form.Label>Age</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter your name"
+                                        value={age}
+                                        onChange={handleAgeChange}
+                                        onClick={()=> setSignupIssue(false)}
+                                    />
+                                </Form.Group>
+                            </div>
 
-                    <div className='form-fields mt-3 p-1'>
-                        <Form.Group controlId="formBasicAge">
-                            <Form.Label>Age</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter your name"
-                                value={age}
-                                onChange={handleAgeChange}
-                                onClick={()=> setSignupIssue(false)}
-                            />
-                        </Form.Group>
-                    </div>
+                            <div className='form-fields mt-3 p-1'>
+                                <Form.Group controlId="formBasicUsername">
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter username"
+                                        value={username}
+                                        onChange={handleUsernameChange}
+                                        onClick={()=> setSignupIssue(false)}
+                                    />
+                                </Form.Group>
+                            </div>
 
-                    <div className='form-fields mt-3 p-1'>
-                        <Form.Group controlId="formBasicUsername">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter username"
-                                value={username}
-                                onChange={handleUsernameChange}
-                                onClick={()=> setSignupIssue(false)}
-                            />
-                        </Form.Group>
-                    </div>
+                            <div className='form-fields mt-3 p-1'>
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={handlePasswordChange}
+                                        onClick={()=> setSignupIssue(false)}
+                                    />
+                                </Form.Group>
+                            </div>
 
-                    <div className='form-fields mt-3 p-1'>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Password"
-                                value={password}
-                                onChange={handlePasswordChange}
-                                onClick={()=> setSignupIssue(false)}
-                            />
-                        </Form.Group>
-                    </div>
-
-                    <div className='d-flex flex-row justify-content-center align-items-center'>
-                        <Button className='signup-btn mt-5' type="submit">
-                            SignUp
-                        </Button>
-                    </div>
-                    <div className='d-flex flex-row justify-content-center align-items-center'>
-                        {
-                            spinner && spinnerElem
-                        }
-                    </div>
-                </Form>
+                            <div className='d-flex flex-row justify-content-center align-items-center'>
+                                <Button className='signup-btn mt-5' type="submit">
+                                    SignUp
+                                </Button>
+                            </div>
+                            <div className='d-flex flex-row justify-content-center align-items-center'>
+                                {
+                                    spinner && spinnerElem
+                                }
+                            </div>
+                        </Form>
+                    </Col>
+                </Row>
             </Container>
 
         </div>

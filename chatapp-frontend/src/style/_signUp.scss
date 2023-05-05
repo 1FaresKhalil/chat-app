@@ -2,9 +2,6 @@
 @import "./globalSass/fonts";
 @import "./globalSass/media";
 @import "./globalSass/globalMixins";
-.signup{
-  width: 80vh;
-}
 .signup .signup-btn{
   @include main_button;
 }
